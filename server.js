@@ -5,14 +5,23 @@ import OpenAI from "openai"
 
 const app = express()
 
+// Correct Render port
+const PORT = process.env.PORT || 3001
+
 app.use(cors({
   origin: [
     "https://daviddoyle.co.uk",
+    "https://www.daviddoyle.co.uk",
     "https://davidtestui.onrender.com",
+    "https://cdn.siteloft.com",
     "http://localhost:3000",
     "http://localhost:3001"
-  ]
+  ],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
 }))
+
+app.options("*", cors()) // preflight support
 
 app.use(bodyParser.json())
 
@@ -22,7 +31,7 @@ const client = new OpenAI({
 
 const SYSTEM_MESSAGE = `
 You are David, the softly spoken digital assistant for David Doyle Estate Agents in Hemel Hempstead.
-Follow all tone and behaviour rules.
+Follow all tone and behaviour guidelines.
 Avoid using dashes.
 Stay warm and helpful.
 Do not book appointments or access systems.
@@ -45,11 +54,11 @@ app.post("/chat", async (req, res) => {
     res.json({ reply })
 
   } catch (err) {
-    console.error(err)
+    console.error("Chat error", err)
     res.status(500).json({ error: "Something went wrong" })
   }
 })
 
-app.listen(3001, () => {
-  console.log("David test server running")
+app.listen(PORT, () => {
+  console.log("David server live on port", PORT)
 })
