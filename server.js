@@ -13,6 +13,7 @@ app.use(cors({
     "https://daviddoyle.co.uk",
     "https://www.daviddoyle.co.uk",
     "https://davidtestui.onrender.com",
+    "https://davidtestbotiframe.onrender.com",
     "https://cdn.siteloft.com",
     "http://localhost:3000",
     "http://localhost:3001"
