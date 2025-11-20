@@ -12,7 +12,7 @@ app.use(cors({
   origin: [
     "https://daviddoyle.co.uk",
     "https://www.daviddoyle.co.uk",
-    "https://davidtestui.onrender.com",
+    "https://davidtestbot-1.onrender.com",
     "https://davidtestbotiframe.onrender.com",
     "https://cdn.siteloft.com",
     "http://localhost:3000",
@@ -63,3 +63,4 @@ app.post("/chat", async (req, res) => {
 app.listen(PORT, () => {
   console.log("David server live on port", PORT)
 })
+
