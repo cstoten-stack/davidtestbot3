@@ -5,24 +5,22 @@ import OpenAI from "openai"
 
 const app = express()
 
-// Correct Render port
+// Render port fix
 const PORT = process.env.PORT || 3001
 
+// Correct CORS allow list
 app.use(cors({
   origin: [
     "https://daviddoyle.co.uk",
     "https://www.daviddoyle.co.uk",
-    "https://davidtestbot-1.onrender.com",
     "https://davidtestbotiframe.onrender.com",
-    "https://cdn.siteloft.com",
-    "http://localhost:3000",
-    "http://localhost:3001"
+    "https://cdn.siteloft.com"
   ],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"]
 }))
 
-app.options("*", cors()) // preflight support
+app.options("*", cors())
 
 app.use(bodyParser.json())
 
@@ -63,4 +61,3 @@ app.post("/chat", async (req, res) => {
 app.listen(PORT, () => {
   console.log("David server live on port", PORT)
 })
-
