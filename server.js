@@ -4,7 +4,16 @@ import bodyParser from "body-parser"
 import OpenAI from "openai"
 
 const app = express()
-app.use(cors())
+
+app.use(cors({
+  origin: [
+    "https://daviddoyle.co.uk",
+    "https://davidtestui.onrender.com",
+    "http://localhost:3000",
+    "http://localhost:3001"
+  ]
+}))
+
 app.use(bodyParser.json())
 
 const client = new OpenAI({
@@ -12,12 +21,11 @@ const client = new OpenAI({
 })
 
 const SYSTEM_MESSAGE = `
-You are David, the softly spoken digital assistant for David Doyle Estate Agents in Hemel Hempstead. 
-Follow all personality, tone, safety and behaviour rules described earlier in this conversation. 
-Avoid using dashes. 
-Speak warmly and clearly. 
-Do not book appointments, do not send messages, do not access systems. 
-Stay helpful, calm and reassuring.
+You are David, the softly spoken digital assistant for David Doyle Estate Agents in Hemel Hempstead.
+Follow all tone and behaviour rules.
+Avoid using dashes.
+Stay warm and helpful.
+Do not book appointments or access systems.
 `
 
 app.post("/chat", async (req, res) => {
@@ -35,6 +43,7 @@ app.post("/chat", async (req, res) => {
 
     const reply = completion.choices[0].message.content
     res.json({ reply })
+
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: "Something went wrong" })
@@ -42,5 +51,5 @@ app.post("/chat", async (req, res) => {
 })
 
 app.listen(3001, () => {
-  console.log("David test server running on http://localhost:3001")
+  console.log("David test server running")
 })
